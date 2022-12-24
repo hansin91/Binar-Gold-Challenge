@@ -2,7 +2,7 @@ import sqlite3
 import os
 import pandas as pd
 
-from flask import Flask, flash, redirect, jsonify, request
+from flask import Flask, render_template, flash, redirect, jsonify, request
 from flasgger import LazyJSONEncoder, LazyString, Swagger, swag_from
 from werkzeug.utils import secure_filename
 from cleansing import cleanse_text
@@ -48,16 +48,7 @@ print('Table created successfully')
 
 @app.route('/', methods=['GET'])
 def homepage():
-    a =  [1,2,4]
-    b = ['Ronaldo', 'Mbappe', 'Benzema']
-    data = zip(a, b)
-    json_response = {
-        'status_code': 200,
-        'description': 'Text Cleansing',
-        'data': tuple(data)
-    }
-    response_data = jsonify(json_response)
-    return response_data
+    return render_template('index.html')
 
 @swag_from('docs/text_cleansing.yml', methods=['POST'])
 @app.route('/text-cleansing', methods=['POST'])
@@ -73,8 +64,6 @@ def text_cleansing():
     response_data = jsonify(json_response)
     c.execute("INSERT INTO data (original_text, cleaned_text) values(?,?)",(text, cleaned_text)) 
     conn.commit()
-    c.close()
-    conn.close()
     return response_data
 
 def allowed_file(filename):
@@ -98,6 +87,7 @@ def file_uploading():
         file.save(url_path)
         df = pd.read_csv(url_path, encoding='latin-1')
         df = df.iloc[:, 0]
+        df = df.dropna()
         text_array = []
         c.execute('BEGIN TRANSACTION')
         for text in df:
