@@ -2,7 +2,7 @@ import sqlite3
 import os
 import pandas as pd
 
-from flask import Flask, flash, redirect, url_for, jsonify, request
+from flask import Flask, flash, redirect, jsonify, request
 from flasgger import LazyJSONEncoder, LazyString, Swagger, swag_from
 from werkzeug.utils import secure_filename
 from cleansing import cleanse_text
