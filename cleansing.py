@@ -10,7 +10,6 @@ def lowercase(text):
 def remove_unnecessary_char(text):
     text = re.sub('\\+n', ' ', text)
     text = re.sub('\n'," ",text)
-    
     text = re.sub('rt',' ',text)
     text = re.sub('RT',' ',text) 
     text = re.sub('user',' ',text)
