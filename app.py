@@ -1,17 +1,21 @@
 import sqlite3
 import os
 import pandas as pd
+import matplotlib.pyplot as plt
 
+from flask_bootstrap import Bootstrap4
 from flask import Flask, render_template, flash, redirect, jsonify, request
 from flasgger import LazyJSONEncoder, LazyString, Swagger, swag_from
 from werkzeug.utils import secure_filename
 from cleansing import cleanse_text
+from report import getMostCommonWordsInNegativeTweet, getMostCommonWordsInPositiveTweet, getMostCommonWordsInTweet, generatePieChart, generateGroupHateSpeeh, generateIndividualHateSpeeh, generateClassificationHateSpeechBarChart, generateCharacteristicHateSpeechBarChart, generateSentimentChart, generateNegativeTweetChart
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = {'csv'}
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+bootstrap = Bootstrap4(app)
 
 app.json_encoder = LazyJSONEncoder
 swagger_template = dict(
@@ -48,7 +52,36 @@ print('Table created successfully')
 
 @app.route('/', methods=['GET'])
 def homepage():
-    return render_template('index.html')
+    sentimentChart = generateSentimentChart()
+    negativeChart = generateNegativeTweetChart()
+    null, characteristicHateSpeechDf  = generateCharacteristicHateSpeechBarChart()
+    typeOfHateSpeechPieChart = generatePieChart(characteristicHateSpeechDf, 'Karakter Hate Speech')
+    null, classificationcHateSpeechDf  = generateClassificationHateSpeechBarChart()
+    classificationHateSpeechPieChart = generatePieChart(classificationcHateSpeechDf, 'Klasifikasi Hate Speech')
+    individualHateSpeechBarChart, individualHateSpeechDf  = generateIndividualHateSpeeh()
+    groupHateSpeechBarChart, groupHateSpeechDf = generateGroupHateSpeeh()
+    negativeWords = getMostCommonWordsInNegativeTweet()
+    positiveWords = getMostCommonWordsInPositiveTweet()
+    return render_template('index.html',
+        zip=zip,
+        negativeWordsColums = negativeWords.columns.values,
+        negativeWordsRowData = list(negativeWords.values.tolist()),
+        positiveWordsColums = positiveWords.columns.values,
+        positiveWordsRowData = list(positiveWords.values.tolist()),
+        characteristicHateSpeechColumns = characteristicHateSpeechDf.columns.values,
+        characteristicHateSpeechRowData = list(characteristicHateSpeechDf.values.tolist()),
+        classificationcHateSpeechColumns = classificationcHateSpeechDf.columns.values, 
+        classificationHateSpeechRowData = list(classificationcHateSpeechDf.values.tolist()),
+        individualHateSpeechColumns = individualHateSpeechDf.columns.values,
+        individualHateSpeechRowData = list(individualHateSpeechDf.values.tolist()),
+        groupHateSpeechColumns = groupHateSpeechDf.columns.values,
+        groupHateSpeechRowData = list(groupHateSpeechDf.values.tolist()),
+        sentimentChart=sentimentChart,
+        typeOfHateSpeechPieChart=typeOfHateSpeechPieChart,
+        individualHateSpeechBarChart=individualHateSpeechBarChart,
+        groupHateSpeechBarChart=groupHateSpeechBarChart,
+        classificationHateSpeechPieChart=classificationHateSpeechPieChart,
+        negativeChart=negativeChart)
 
 @swag_from('docs/text_cleansing.yml', methods=['POST'])
 @app.route('/text-cleansing', methods=['POST'])
@@ -108,4 +141,4 @@ def file_uploading():
         return response_data
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, debug=True)

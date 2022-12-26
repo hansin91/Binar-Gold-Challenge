@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{ bootstrap.load_css() }}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/blog.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+  <br/><br/>
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-12 blog-main">
+        <div class="blog-post" style="margin-bottom: 1rem;">
+          {% block content %}{% endblock %}
+        </div>
+      </div>
+    </div>
+  </main>
+  <div class="container">
+    <div class="row mb-2">
+      <div class="col-md-12 blog-main">
+        <div class="blog-post" style="margin-bottom: 1rem;">
+          <h2>Analisis</h2>
+        </div>
+      </div>
+      {% include 'analyse.html' %}
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 blog-main">
+        <div class="blog-post">
+          <h2>Kesimpulan</h2>
+          <div>
+            <ol>
+              <li>Tweet berbahasa Indonesia cenderung ke arah sentimen negatif.</li>
+              <li>Sebagian besar sentimen negatif bersifat <i>hate speech</i> dan <i>abusive.</i> </li>
+              <li>Ujaran kebencian atau <i>hate speech</i> sebagian besar diidentifikasi sebagai <i>weak</i> atau lemah <i>hate speech.</i>
+              <li>Ujaran kebencian sebagian besar ditujukan kepada individu.</li>
+              <li>Ujaran kebencian terhadap individu dan grup sebagian besar di luar topik agama, ras, fisik, dan gender.</li>
+              <li>Agama menjadi topik kedua terbesar pada ujaran kebencian terhadap suatu golongan</li>
+              <li>Kata "presiden", "indonesia", dan "orang" sering digunakan dalam <i>tweet</i></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{ bootstrap.load_js() }}
+</body>
+</html>

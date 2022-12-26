@@ -1,0 +1,206 @@
+
+
+<div class="col-md-12">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <img class="card-img-top img-fluid" src="{{ url_for('static', filename=sentimentChart) }}">
+        <div class="card-body">
+          <p class="lead my-3" style="text-align: justify;">
+            Berdasarkan data di atas, lebih dari separuh sentimen <i>tweet</i> berbahasa Indonesia bersifat negatif, 
+            sedangkan yang bersifat positif sebesar 44%.  
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card" style="height: 100%;">
+        <img class="card-img-top img-fluid" src="{{ url_for('static', filename=negativeChart) }}">
+        <div class="card-body">
+          <p class="lead my-3" style="text-align: justify;">
+            Berdasarkan data di atas, sentimen negatif didominasi oleh <i>tweet</i> yang bersifat <i>hate speech</i> dan <i>abusive</i>.  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-12 pt-4">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table m-4">
+          <thead>
+           {% for col in characteristicHateSpeechColumns %}
+            <th>{{col}}</th>
+          {% endfor %}
+          </thead>
+          <tbody>
+            {% for row in characteristicHateSpeechRowData %}
+            <tr>
+              {% for col, row_ in zip(characteristicHateSpeechColumns, row) %}
+              <td>{{row_}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <img class="img-fluid" width="530" src="{{ url_for('static', filename=typeOfHateSpeechPieChart) }}">
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="lead my-3" style="text-align: justify;">
+        Berdasarkan data di atas, <i>tweet</i> yang bersifat <i>hate speech</i> sebagian besar memiliki karakter yang bersifat <i>weak</i> atau lemah di angka 60%,
+        sedangkan <i>strong characteristic</i> hanya sebesar 8%.
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 pt-4">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table m-4">
+          <thead>
+           {% for col in classificationcHateSpeechColumns %}
+            <th>{{col}}</th>
+          {% endfor %}
+          </thead>
+          <tbody>
+            {% for row in classificationHateSpeechRowData %}
+            <tr>
+              {% for col, row_ in zip(classificationcHateSpeechColumns, row) %}
+              <td>{{row_}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <img class="img-fluid" src="{{ url_for('static', filename=classificationHateSpeechPieChart) }}">
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="lead my-3" style="text-align: justify;">
+        Berdasarkan data di atas, lebih dari 50% <i>tweet</i> yang bersifat <i>hate speech</i> ditujukan kepada individu dibandingkan grup atau golongan.
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 pt-4">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table m-4">
+          <thead>
+           {% for col in individualHateSpeechColumns %}
+            <th>{{col}}</th>
+          {% endfor %}
+          </thead>
+          <tbody>
+            {% for row in individualHateSpeechRowData %}
+            <tr>
+              {% for col, row_ in zip(individualHateSpeechColumns, row) %}
+              <td>{{row_}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <img class="img-fluid" src="{{ url_for('static', filename=individualHateSpeechBarChart) }}">
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="lead my-3" style="text-align: justify;">
+        Berdasarkan data di atas, sebagian besar <i>hate speech</i> yang ditujukan kepada individu diluar dari agama, ras, fisik, dan gender,
+        sedangkan yang paling sedikit ditujukan kepada suatu ras. 
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 pt-4">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table m-4">
+          <thead>
+           {% for col in groupHateSpeechColumns %}
+            <th>{{col}}</th>
+          {% endfor %}
+          </thead>
+          <tbody>
+            {% for row in groupHateSpeechRowData %}
+            <tr>
+              {% for col, row_ in zip(groupHateSpeechColumns, row) %}
+              <td>{{row_}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <img class="img-fluid" src="{{ url_for('static', filename=groupHateSpeechBarChart) }}">
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="lead my-3" style="text-align: justify;">
+        Sama seperti individu sebagian besar <i>hate speech</i> yang ditujukan kepada grup diluar dari agama, ras, fisik, dan gender. 
+        Namun terbesar kedua ditujukan kepada suatu agama dan yang paling sedikit bersifat <i>hate speech</i> fisik
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 pt-4">
+  <div class="card">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="m-2"><i>Tweet</i> Negatif</h2>
+        <table class="table">
+          <thead>
+           {% for col in negativeWordsColums %}
+            <th>{{col}}</th>
+          {% endfor %}
+          </thead>
+          <tbody>
+            {% for row in negativeWordsRowData %}
+            <tr>
+              {% for col, row_ in zip(negativeWordsColums, row) %}
+              <td>{{row_}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h2 class="m-2"><i>Tweet</i> Positif</h2>
+        <table class="table">
+          <thead>
+           {% for col in positiveWordsColums %}
+            <th>{{col}}</th>
+          {% endfor %}
+          </thead>
+          <tbody>
+            {% for row in positiveWordsRowData %}
+            <tr>
+              {% for col, row_ in zip(positiveWordsColums, row) %}
+              <td>{{row_}}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="lead my-3" style="text-align: justify;">
+        Berdasarkan data diatas, kata "indonesia", "presiden" dan "gue" merupakan 3 kata yang sering digunakan di dalam <i>tweet</i> negatif,
+        sedangkan untuk <i>tweet</i> positif sering menggunakan kata "orang", "indonesia", dan "presiden". 
+        Selain itu, ada beberapa kata yang sering digunakan bersamaan di dalam <i>tweet</i> yang bersifat positif dan negatif seperti "presiden", "indonesia", dan "orang".
+    </div>
+  </div>
+</div>

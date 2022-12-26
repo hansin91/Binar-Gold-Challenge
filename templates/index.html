@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
+<h3>Analisa sentimen data Twitter tentang ujaran kebencian dan kata kasar</h3>
+<p class="blog-post-meta">26 Desember 2022 oleh <a href="#">Hansin Susatya</a></p>
+<hr/>
+<h2>Latar Belakang</h2>
+<p style="text-align: justify;">
+  Kemudahan mengakses internet saat ini menjadikan informasi akan tersebar secara cepat dan luas. 
+  Ditambah dengan munculnya sosial media seperti Twitter, semua orang dapat mengakses informasi secara 
+  <i>real time</i>. Twitter merupakan salah satu media sosial yang banyak digunakan oleh orang Indonesia untuk berbagi informasi mulai dari berita, opini, komentar, kritik terhadap seseorang, objek ataupun suatu instansi. 
+  Namun, tidak semua informasi yang beredar bersifat positif dan netral melainkan mengarah kepada hal yang negatif. Oleh karena itu saya melakukan analisa sentimen terhadap <i>tweet</i> dalam bahasa Indonesia untuk melihat kecenderungan opini bersifat negatif atau positif. 
+  Selain itu untuk melihat distribusi jenis dan klasifikasi <i>hate speech</i> dan mengetahui kata-kata yang sering digunakan.  
+</p>
+<h2>Rumusan Masalah</h2>
+<p style="text-align: justify;">
+  Berdasarkan latar belakang di atas maka rumusan masalah adalah sebagai berikut: 
+  <ol>
+    <li>Bagaimana persebaran sentimen positif dan negatif dari tweet dalam bahasa Indonesia ?</li>
+    <li>Bagaimana persebaran proporsi jenis hate speech ?</li>
+    <li>Bagaimana persebaran proporsi klasifikasi hate speech ?</li>
+    <li>Kata-kata apa saja yang sering muncul dalam <i>tweet</i> ?</li>
+  </ol>
+</p>
+<h2>Tujuan</h2>
+<p style="text-align: justify;">
+  Pembuatan laporan ini bertujuan untuk:
+  <ol>
+    <li>Menganalisa persebaran sentimen positif dan negatif pada <i>tweet</i> berbahasa Indonesia.</li>
+    <li>Menganalisa persebaran sentimen negatif terhadap golongan, ras, individu, agama, fisik dan gender.</li>
+    <li>Menganalisa kata-kata yang sering muncul di dalam <i>tweet</i> berbahasa Indonesia.</li>
+  </ol>
+</p>
+<h2>Metode Analisis</h2>
+<p style="text-align: justify;">
+  <ol>
+    <li>Menggunakan library python seperti Pandas, Numpy, Matplotlib, dan Seaborn.</li>
+    <li>Menggunakan data <i>Indonesian Abusive and Hate Speech Twitter Text</i> dari <a target="_blank" href="https://www.kaggle.com/datasets/ilhamfp31/indonesian-abusive-and-hate-speech-twitter-text?select=data.csv">Kaggle.</a></li>
+  </ol>
+</p>
+<br>
+{% endblock %}
