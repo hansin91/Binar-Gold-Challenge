@@ -8,7 +8,7 @@ from flask import Flask, render_template, flash, redirect, jsonify, request
 from flasgger import LazyJSONEncoder, LazyString, Swagger, swag_from
 from werkzeug.utils import secure_filename
 from cleansing import cleanse_text
-from report import getMostCommonWordsInNegativeTweet, getMostCommonWordsInPositiveTweet, getMostCommonWordsInTweet, generatePieChart, generateGroupHateSpeeh, generateIndividualHateSpeeh, generateClassificationHateSpeechBarChart, generateCharacteristicHateSpeechBarChart, generateSentimentChart, generateNegativeTweetChart
+from report import calculateCharacteristicHateSpeech, calculateClassificationHateSpeech, getMostCommonWordsInNegativeTweet, getMostCommonWordsInPositiveTweet, getMostCommonWordsInTweet, generatePieChart, generateGroupHateSpeeh, generateIndividualHateSpeeh, generateClassificationHateSpeechBarChart, generateCharacteristicHateSpeechBarChart, generateSentimentChart, generateNegativeTweetChart
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = {'csv'}
@@ -54,9 +54,9 @@ print('Table created successfully')
 def homepage():
     sentimentChart = generateSentimentChart()
     negativeChart = generateNegativeTweetChart()
-    null, characteristicHateSpeechDf  = generateCharacteristicHateSpeechBarChart()
+    characteristicHateSpeechDf = calculateCharacteristicHateSpeech()
     typeOfHateSpeechPieChart = generatePieChart(characteristicHateSpeechDf, 'Karakter Hate Speech')
-    null, classificationcHateSpeechDf  = generateClassificationHateSpeechBarChart()
+    classificationcHateSpeechDf  = calculateClassificationHateSpeech()
     classificationHateSpeechPieChart = generatePieChart(classificationcHateSpeechDf, 'Klasifikasi Hate Speech')
     individualHateSpeechBarChart, individualHateSpeechDf  = generateIndividualHateSpeeh()
     groupHateSpeechBarChart, groupHateSpeechDf = generateGroupHateSpeeh()

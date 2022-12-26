@@ -188,6 +188,11 @@ def generateNegativeTweetChart():
     fileName = generatePieChart(data, 'Tweet Negatif')
     return fileName
 
+def generateCharacteristicHateSpeechPieChart():
+    data = calculateCharacteristicHateSpeech()
+    fileName = generatePieChart(data, 'Karakteristik Hate Speech')
+    return fileName
+
 def generateClassificationHateSpeechBarChart():
     data = calculateClassificationHateSpeech()
     fileName = generateBarChart(data, 'Klasifikasi Hate Speech')
