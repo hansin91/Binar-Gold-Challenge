@@ -8,19 +8,27 @@ def lowercase(text):
     return text.lower()
 
 def remove_unnecessary_char(text):
-    text = re.sub('\\+n', ' ', text)
-    text = re.sub('\n'," ",text)
-    text = re.sub('rt',' ',text)
-    text = re.sub('RT',' ',text) 
-    text = re.sub('user',' ',text)
-    text = re.sub('USER', ' ', text)
-    text = re.sub('((www\.[^\s]+)|(https?://[^\s]+)|(http?://[^\s]+))',' ',text)
-    text = re.sub(':', ' ', text)
-    text = re.sub(';', ' ', text)
-    text = re.sub('\\+n', ' ', text)
-    text = re.sub('\n'," ",text)
-    text = re.sub('\\+', ' ', text)
-    text = re.sub('  +', ' ', text)
+    text = re.sub('\\+n', ' ', text) # remove every new line
+    text = re.sub('\n',' ',text) # remove every single new line
+    text = re.sub('\\+', ' ', text) # remomove unessessary character
+    text = re.sub(r'\brt\b','', text) # r'\b...\b to remove certain word, only at the beginning or end of the word for 'rt' 
+    text = re.sub(r'\buser\b','', text) # r'\b...\b to remove certain word, only at the beginning or end of the word for 'user'
+    text = re.sub(r'\burl\b','', text)
+    text = re.sub(r'\bnurl\b','', text)
+    text = re.sub('&lt;/?[a-z]+&gt;', '', text)
+    text = re.sub('&amp', '', text)
+    text = re.sub('((www\.[^\s]+)|(https?://[^\s]+)|(http?://[^\s]+))',' ',text) # remomove unessessary character 
+    text = re.sub(':', ' ', text) # remomove special character 
+    text = re.sub(';', ' ', text) 
+    text = re.sub('  +', ' ', text) 
+    text = re.sub(r'pic.twitter.com.[\w]+', '', text) # remomove unessessary character 
+    text = re.sub(r'[^\x00-\x7F]+',' ', text)  
+    text = re.sub(r'‚Ä¶', '', text)  
+    to_delete = ['hypertext', 'transfer', 'protocol', 'over', 'secure', 'socket', 'layer', 'dtype', 'tweet', 'name', 'object'
+                    ,'twitter','com', 'pic'] # delete another unessessary words
+    for word in to_delete: 
+        text = re.sub(word,'', text) # remove extra space
+        text = re.sub(word.upper(),' ',text)
     return text
 
 def remove_nonaplhanumeric(text):
@@ -29,7 +37,7 @@ def remove_nonaplhanumeric(text):
 
 def normalize_alay(text):
     alay_dict = pd.read_csv('./dictionaries/new_kamusalay.csv', names=['original', 'replacement'], encoding='latin-1')
-    alay_dict_map = dict(zip(alay_dict['original'], alay_dict['replacement']))
+    alay_dict_map = dict(zip(alay_dict['original'], alay_dict['replacement']))  
     normalize_text = ' '.join([alay_dict_map[word] if word in alay_dict_map else word for word in text.split(' ')])
     return normalize_text
 
